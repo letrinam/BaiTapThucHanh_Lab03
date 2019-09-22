@@ -74,16 +74,16 @@
         <button type="button" class="btn btn-success" onclick="ThanhToan()"><i class="fa fa-money" aria-hidden="true"></i> Thanh Toán</button>
     </div>
 
-    <div class="form-group">
-        <label for="exampleFormControlSelect2">Danh sách Khách Hàng</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
+   
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="listKH">Danh sách</label>
+            <select class="form-control" id="listKH" size="10" onchange="loadCustomer()">
+           
+            </select>
+        </div>
     </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

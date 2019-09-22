@@ -57,11 +57,93 @@ function reset() {
     Tien.innerText = 0;
 }
 
-function saveInfo() {
+function loadListCustomer()
+{
+    eList.innerHTML = "";
+    var i = 1;
+    while (true)
+    {
+        var j =  localStorage.getItem("kh" + i);
+            if (j == null) return;
+        if (j.length < 1) return;
+        var kh = JSON.parse(j);
+
+        eList.innerHTML += "<option value='"+i+"'>"+kh.fullname+"</option>";
+
+        i++;
+    }
+}
+
+function loadCustomer() {
+    var id = eList.value;
+    if (id == null) return;
+    var j =  localStorage.getItem("kh" + id);
+    if (j == null) return;
+    if (j.length < 1) return 0;
+    var kh = JSON.parse(j);
+
+    eFullname.value = kh.fullname;
+    eTram.value = kh.tram;
+    eCaoVoi.checked = kh.caovoi;
+    eTayTrang.checked = kh.taytrang;
+    eChupHinh.checked = kh.chuphinh;
+    eTien.innerText = formatMoney(cal());
+    return 1;
+}
+
+function saveInfo()
+{
     localStorage.setItem("fullname", Fullname.value);
     localStorage.setItem("cbCaoVoi", CaoVoi.checked);
     localStorage.setItem("cbTayTrang", TayTrang.checked);
     localStorage.setItem("cbChupHinhRang", ChupHinhRang.checked);
     localStorage.setItem("edtTramRang", Tram.checked);
+
+
+    // luu list
+    var kh = new khachHang(Fullname.value, CaoVoi.checked, TayTrang.checked, ChupHinh.checked, Tram.value);
+    var number  = localStorage.getItem("number");
+    if (number == null)number = 0;
+    else if (number.length < 1) number = 0;
+    number++;
+    
+    localStorage.setItem("kh" + number, JSON.stringify(kh));
+    localStorage.setItem("number", number);
+    loadListCustomer();
 }
-T
+
+
+function formatMoney(money)
+{
+    money = money.toString();
+    if (money.length < 1) return 0;
+    var newMoney = "";
+    var count = 1;
+    for (var i = money.length - 1; i >= 0; i--) {
+        if (count%3==0 && i!=0) newMoney = "." + money[i] + newMoney;
+        else newMoney = money[i] + newMoney;
+        count++;
+    }
+    return newMoney;
+}
+
+function autoFixName()
+{
+    fullname = eFullname.value;
+    if (fullname.length < 1) return;
+    fullname = fullname.replace("  ", " ");
+    var newName = "";
+    var flag = true;
+    for (var i = 0; i < fullname.length; i++) {
+        if (flag) {
+            newName += fullname[i].toUpperCase();
+            flag = false;
+        }
+        else newName += fullname[i];
+        if (fullname[i] == " ") flag = true;
+    }
+
+    eFullname.value = newName;
+}
+
+loadListCustomer();
