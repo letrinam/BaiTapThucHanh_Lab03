@@ -143,7 +143,7 @@ function autoFixName()
         if (fullname[i] == " ") flag = true;
     }
 
-    eFullname.value = newName;
+    eFullname.value = newName;;
 }
 
 loadListCustomer();
